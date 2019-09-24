@@ -1,85 +1,40 @@
 # phplist-docker
 
-Run phpList (www.phplist.org) in a Docker environment
+phpListをDockerで動かします。
 
-Work in progress, more features coming
-The current configuration will not send any emails to the world. All
-emails will be delivered to the mailhost machine locally.
+postflixの設定を[Customers Mail Cloud](https://smtps.jp/)に寄せています。
 
-## pre-requisites
+## 必要なもの
 
-To use this you need to have a working docker version 2 environment. 
-That is unfortunately not just yet too straightforward. 
-Head over to https://www.docker.com and get started
+- Docker
+- Docker Compose
 
-You need the following commands (I'm reporting the versions I have, Sep 2018)
-    
-    docker
-    
-        $ docker --version
-Docker version 18.03.1-ce, build 9ee9f40
+## 設定
 
-    docker-compose 
-    
-        $ docker-compose --version
-docker-compose version 1.21.0-rc1, build 1d32980
-
-## configuration 
-
-Copy the .env-dist file and save it as .env in your current folder
+設定ファイルを作成します。.env-distをコピーして編集してください。
 
     cp .env-dist .env
    
-Edit the values to match your situation
 
-You can leave the database values, but you will need to set
-    
-    PHPLIST_ADMINNAME="Your Name"
-    PHPLIST_ADMINPASSWORD="SomeRandomPassword"
-    PHPLIST_ADMINEMAIL=YourEmail@Yourdomain.com
-    
-and
-    
-    PORT=8000
-    HOSTNAME=localhost
-    
-*HOSTNAME* is the name you will be accessing your phpList installation on. Port will be
-the port to connect to. To try it out on your local machine, you can use the defaults.
+## 立ち上げ
 
-## installation
+ビルドした後、立ち上げます。
 
-Once you have set the values in .env, you can run
+```
+docker-compose build
+```
 
-    ./start-phplist.sh
-    
-Wait some time, because the first time the database will be created and configured.
+```
+docker-compose up
+```
 
-Once it's all set up, you will be able to login to phpList on the HOSTNAME and PORT 
-you specified in the .env file using "admin" as the login and the PHPLIST_ADMINPASSWORD
-you set in the .env file as the password.
-
-In the above example, that means you point your browser at
+立ち上がったら、下記のアドレスにアクセスします。
 
 http://localhost:8000/lists/admin/
 
-and login with username "admin" and password "SomeRandomPassword"
+ログイン情報は下記の通りです。設定で変更できます。
 
-
-## features
-
-Current features in the container are:
-
-- CKEditor Plugin
-- Image Upload works (and will be saved when you stop the container)
-- Sending of emails does *not* work
-
-
-## hints
-
-For docker-compose, visit https://github.com/docker/compose/releases
-For docker, visit https://github.com/docker/docker/releases
-
-
-## development.
-
-To use this docker setup for development of phpList, phpList themes or phpList plugins visit https://resources.phplist.com/develop/docker
+- **ユーザ名**  
+admin
+- **パスワード**  
+SomeRandomPassword
